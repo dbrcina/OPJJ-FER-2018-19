@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Primjer JavaScript koda</title>
+    <script type="text/javascript"><!--
+      // vidi: http://www.w3schools.com/js/js_timing.asp
+
+      function osvjeziVrijeme() {
+        // kljucna rijec "var": definiramo lokalnu varijablu
+        var sada = new Date();
+        document.getElementById("vrijeme").innerHTML = "<b>" + sada.toLocaleString() +"</b>";
+      }
+
+      // pisan bez kljucne rijeci "var", timer je globalna varijabla...
+      timer = window.setInterval(osvjeziVrijeme, 1000);
+
+      // Ako treba poni¨titi timer, pozvati: 
+      // window.clearInterval(timer);
+    //--></script>
+  </head>
+  <body>
+    <h1>Uporaba JavaScripta</h1>
+    <p>Ovaj paragraf zadan je direktno u HTML-u.</p>
+    <script type="text/javascript"><!--
+
+      for(var i = 1; i <= 10; i++) {
+        document.write("<p>Generirani paragraf broj "+i+".</p>\r\n");
+      }
+
+    //--></script>
+    <p>Trenutno vrijeme je: <span id="vrijeme">xxxx</span>.</p>
+  </body>
+</html>

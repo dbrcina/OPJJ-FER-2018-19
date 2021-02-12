@@ -1,0 +1,4 @@
+{$ FOR i-1.35bbb"1" $}
+Example { bla } blu \{$=1$}. Nothing interesting {=here}.
+Example \{$=1$}. Now actually write one {$=1$}
+{$END$}

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Calculator</title>
+		<style>
+			table, td {
+				border: 1px solid black;
+			}
+			td {
+				padding: 5px;
+				text-align: left;
+			}
+			.column {
+				width: 20%;
+				float: left;
+			}
+		</style>
+	</head>
+	
+	<body>
+		<h1>Addition</h1>
+		
+		<div class="row">
+			<div class="column">
+				<table>
+					<tr>
+						<td>a</td>
+						<td>{$= "a" 1 @tparamGet $}</td>
+					</tr>
+					<tr>
+						<td>b</td>
+						<td>{$= "b" 2 @tparamGet $}</td>
+					</tr>
+					<tr>
+						<td>a+b</td>
+						<td>{$= "zbroj" 3 @tparamGet $}</td>
+					</tr>
+				</table>
+			</div>
+			<div class="column">
+				<img src={$= "imgName" "images/lemon.jpg" @tparamGet $}>
+			</div>
+		</div>
+		
+	</body>
+
+</html>

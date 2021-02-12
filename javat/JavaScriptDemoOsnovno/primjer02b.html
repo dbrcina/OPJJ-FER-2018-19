@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<!-- Upoznajmo se s DOMom! -->
+		<!-- Vidi: http://www.w3schools.com/js/js_htmldom_navigation.asp -->
+		
+		<meta charset="UTF-8">
+		<title>Document Object Model</title>
+		<script type="text/javascript"><!--
+		  function zvjezdice(n) {
+			 var t = "";
+			 for(var i = 0; i < n; i++) t+="+";
+			 return t;
+		  }
+
+		  function atributi(node) {
+			if(!node.attributes || node.attributes.length==0) return "";
+			var t = " ";
+			for(var i = 0; i < node.attributes.length; i++) {
+				var a = node.attributes[i];
+				t += a.name + " = (" + a.value +") "
+			}
+			return t;
+		  }
+		  
+		  function generirajDOM(node, depth) {
+			  if(node.nodeType == 3) { // text node...
+				  return zvjezdice(depth)+"TEXT: ("+node.nodeValue.trim()+")<br>";
+			  }
+			  if(node.nodeType == 8) { // comment node...
+				  return zvjezdice(depth)+"COMMENT: ("+node.nodeValue.trim()+")<br>";
+			  }
+			  var text = zvjezdice(depth)+node.nodeName+atributi(node)+"<br>";
+			  for(var i = 0; i < node.childNodes.length; i++) {
+				  text += generirajDOM(node.childNodes[i], depth+1);
+			  }
+			  return text;
+		  }
+		  
+		  function traziDOM() {
+			var prikaz = generirajDOM(document, 0);
+			document.getElementById("prikaz").innerHTML = "<pre>"+prikaz+"</pre>";
+		  }
+		//--></script>
+	</head>
+	<body>
+	
+		<h1>Demonstracija DOM-a</h1>
+		
+		<p>Pritiskom na sljedeći gumb zatražit ćete prikaz DOM-a.</p>
+		
+		<button onclick="traziDOM();">Zatraži</button>
+		
+		<div id="prikaz">&nbsp;</div>
+		
+	</body>
+</html>

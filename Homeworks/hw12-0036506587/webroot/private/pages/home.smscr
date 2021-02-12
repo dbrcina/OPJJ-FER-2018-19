@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>Home</title>
+		<style>
+			body {
+				background-color: {$= "background" "#7F7F7F" @tparamGet $};
+			}
+		</style>
+	</head>
+	
+	<body>
+		<h1>Scripts</h1>
+		<a href="http://www.localhost.com:5721/scripts/osnovni.smscr" target="_blank">osnovni.smscr</a><br>
+		<a href="http://www.localhost.com:5721/scripts/brojPoziva.smscr" target="_blank">brojPoziva.smscr</a><br>
+		<a href="http://www.localhost.com:5721/scripts/fibonaccih.smscr" target="_blank">fibonaccih.smscr</a><br>
+		
+		<h1>Workers</h1>
+		<a href="http://www.localhost.com:5721/hello" target="_blank">HelloWorker</a><br>
+		<a href="http://www.localhost.com:5721/cw" target="_blank">CircleWorker</a><br>
+		
+		<h1>Calculator</h1>
+		<form action="/calc" target="_blank" method="GET">
+			a:<br>
+			<input type="text" name="a">
+			<br>
+			b:<br>
+			<input type="text" name="b">
+			<br><br>
+			<input type="submit" value="Calculate">
+		</form>
+		
+		<h1>Colors</h1>
+		<form action="/setbgcolor" target="_self" method="GET">
+			<select name="bgcolor">
+				<option value="FFFFFF">White</option>
+				<option value="FFA500">Orange</option>
+				<option value="FF0000">Red</option>
+				<option value="00FF00">Green</option>
+			</select>
+			<br><br>
+			<input type="submit" value="Submit">
+		</form>
+	</body>
+	
+</html>

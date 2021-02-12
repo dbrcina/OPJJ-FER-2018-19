@@ -1,0 +1,5 @@
+{$= "text/html" @setMimeType $}<p>Ovo je demo skripta.</p>
+<p>Ispis trenutnog datuma i vremena: {$ NOW $}</p>
+<p>Ispis trenutnog datuma: {$ NOW "MM-dd" $}</p>
+<p>Ispis trenutnog vremena: {$ NOW "HH:ss" $}</p>
+<p>Ispis datuma preko funkcije: {$ = "yyyy-MM" @now $}

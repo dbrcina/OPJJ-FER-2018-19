@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Primjer JavaScript koda</title>
+    <script type="text/javascript"><!--
+      // vidi: http://www.w3schools.com/js/js_timing.asp
+
+      function zbroji() {
+        var formular = document.forms[0];
+        var text1 = formular.elements["a"].value;
+        var text2 = formular.elements["b"].value;
+        var v1OK = text1=="" || isNaN(text1) ? 0 : 1;
+        var v2OK = text2=="" || isNaN(text2) ? 0 : 1;
+        var v1 = v1OK ? parseInt(text1) : 0;
+        var v2 = v2OK ? parseInt(text2) : 0;
+        var rez = v1 + v2;
+        document.getElementById("rezultat").innerHTML = "<b>"+( v1OK && v2OK ? rez : "gre¨ka")+"</b>";
+      }
+
+    //--></script>
+  </head>
+  <body>
+    <h1>Uporaba JavaScripta</h1>
+    <form name="kalkulator" onsubmit="return false;">
+    A <input type="text" name="a" value="0"><br>
+    B <input type="text" name="b" value="0"><br>
+    <input type="button" value="A+B" onclick="zbroji();">
+    </form>
+
+    <p>Rezultat je: <span id="rezultat">xxxx</span>.</p>
+  </body>
+</html>

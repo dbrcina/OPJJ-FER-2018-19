@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Primjer JavaScript koda</title>
+  </head>
+  <body>
+    <h1>Uporaba JavaScripta</h1>
+    <p>Ovaj paragraf zadan je direktno u HTML-u.</p>
+    <script type="text/javascript"><!--
+
+      for(var i = 1; i <= 10; i++) {
+        document.write("<p>Generirani paragraf broj "+i+".</p>\r\n");
+      }
+
+      document.write("<p>Rezolucija ekrana: "+window.screen.width+"x"+window.screen.height+", boje: "+window.screen.colorDepth+" bita.</p>\r\n");
+
+      var w = window.innerWidth
+              || document.documentElement.clientWidth
+              || document.body.clientWidth;
+
+      var h = window.innerHeight
+              || document.documentElement.clientHeight
+              || document.body.clientHeight; 
+
+      document.write("<p>Dimenzije prozora (za dokument): "+w+"x"+h+".</p>\r\n");
+
+      document.write("<p>Adresa ove stranice je: "+window.location.href+".</p>\r\n");
+
+    //--></script>
+  </body>
+</html>

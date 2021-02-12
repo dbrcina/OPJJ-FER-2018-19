@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<!-- Upoznajmo se s DOMom! -->
+		<!-- Vidi: http://www.w3schools.com/js/js_htmldom_navigation.asp -->
+		<!-- Vidi: https://www.w3schools.com/jsref/dom_obj_all.asp -->
+
+		<meta charset="UTF-8">
+		<title>Document Object Model</title>
+		<script type="text/javascript"><!--
+		  var brojac = 0;
+		  function dodajSadrzaj() {
+			brojac++;
+			var tag = document.getElementById("prikaz");
+			var noviTag = document.createElement("p");
+			var noviTekst = document.createTextNode("Evo jednog novog paragrafa! Redni broj je "+brojac+".");
+			noviTag.appendChild(noviTekst);
+			tag.insertBefore(noviTag, tag.firstChild);
+			// Možemo i ovako: tag.insertBefore(noviTag, tag.childNodes[0]);
+			// Za dodavanje na kraj: tag.appendChild(noviTag);
+		  }
+		//--></script>
+	</head>
+	<body>
+	
+		<h1>Demonstracija DOM-a</h1>
+		
+		<p>Pritiskom na sljedeći gumb manipuliranjem DOM-a dodat ćete nove elemente u nastavku stranice.</p>
+		
+		<button onclick="dodajSadrzaj();">Dodaj</button>
+		
+		<div id="prikaz">&nbsp;</div>
+		
+	</body>
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Galerija slika</title>
+		<link rel="stylesheet" type="text/css" href="main.css">
+		<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+		<script src="js/htmlescaping.js"></script>
+		<script>
+			$(document).ready (
+				function() {
+					$.ajax (
+						{
+							url: "rest/galerija",
+							data: { dummy: Math.random() },
+							dataType: "json",
+							success: function(data) {
+								var tags = data;
+								var html = "";
+								for (var i = 0; i < tags.length; i++) {
+									html +=	'<button onclick="myThumbnails(\''+htmlEscape(tags[i])+'\')">'+
+												htmlEscape(tags[i])+
+											'</button>';
+								}
+								$("#tags").html(html);
+							}
+						}
+					)
+				}
+			);
+		
+			function myThumbnails(tag) {
+				$("#picture").html("");
+				$.ajax (
+					{
+						url: "rest/galerija/" + tag,
+						data: { dummy: Math.random() },
+						dataType: "json",
+						success: function(data) {
+							var thumbnails = data;
+							var html = "";
+							for (var i = 0; i < thumbnails.length; i++) {
+								var name = htmlEscape(thumbnails[i].name);
+								html += '<img src="image?real=false&name=\''+name+'\'" onclick="getPictureForName(\''+name+'\')">';
+							}
+							$("#thumbnails").html(html);
+						}
+					}	
+				);
+			}
+			
+			function getPictureForName(name) {
+				$.ajax (
+					{
+						url: "rest/galerija/slika/" + name,
+						data: { dummy: Math.random() },
+						dataType: "json",
+						success: function(data) {
+							var picture = data;
+							var html = "<hr><br>";
+							html += '<p>Tagovi: ' + htmlEscape(picture.tags) + '<br>';
+							html += htmlEscape(picture.description) + '</p>';
+							html += '<img src="image?real=true&name=\''+picture.name+'\'">';
+							$("#picture").html(html);
+						}	
+					}
+				);
+			}
+			
+		</script>
+	</head>
+	<body>
+		<div id="tags">&nbsp;</div>
+		<div id="thumbnails">&nbsp;</div>
+		<div id="picture">&nbsp;</div>
+	</body>
+</html>

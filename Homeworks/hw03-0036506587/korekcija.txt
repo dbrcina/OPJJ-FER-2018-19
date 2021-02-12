@@ -1,0 +1,86 @@
+Ovoj zadaæi sam dao ocjenu 1 jer minimalni uvjeti treæeg zadatka nisu zadovoljeni jer se operator "*" u "="-tagu ne parsira u ElementOperator nego u ElementVariable te nedostaje dokumentacija na List suèelju i nekim drugim mjestima
+
+1. zadatak:
+Collection 
+- mogao si u addAll promjeniti da ti koristi lambda izraz umjesto lokalne klase ili bar dodati dokumentaciju na lokalnu klasu
+- addAllSatisfying je mogao biti izveden pomoæu forEach metode korištenjem lambda izraza(sad kada ti je Processor funkcionalno suèelje)
+
+ArrayIndexedCollection i LinkedListIndexedCollection
+- provjeru da li je lista modificirana bi trebalo raditi i u hasNextElement() metodi ElementsGettera
+
+List
+- nedostaje dokumentacija na metodama
+- Dodati malo bolju dokumentaciju interfacea. Zašto nam taj interface uopæe treba?
+
+Ostalo mi se sve èini uredu. 
+
+Lexer(2. zadatak)
+- dodaj pokoji komentar u kod :)
+- ako trebaš raditi konkatenaciju stringova koristi StringBuilder:
+umjesto: 
+    String text = ""; 
+    while(uvjet) {
+      text += nešto;
+    } 
+napravi:
+    StringBuilder text = new StringBuilder();
+    while(uvjet) {
+      text.append(nešto);
+    }
+- metoda fillToken treba prikladnije ime jer je ovo totalno zbunjujuæe. Cijelo vrijeme razmišljam kako u njoj radiš odluku gdje ti u data polju završava token.
+- ista ta metoda prima preveliko polje da bi obavila svoj posao. Stvaraš polje velièine data.length da bi u njega zapisao svega par unosa. Nikako nije isplativo i za ovo si mogao koristiti ArrayIndexedCollection
+- u metodi basicState() nema potrebe ulaziti u metodu fillToken ako trenutno èitaš token broja pa si to mogao testirati prije poziva metode.
+- nedostaje dokumentacija za LexerException konstruktore
+- da bi dobio char kao string možeš koristiti String.valueOf(c) ili iz polja charova String.copyValueOf(data, startIndex, endIndex) - ne ukljuèuje data[endIndex]
+
+3.zadatak:
+- nije potrebna varijabla isFirstCall u Node klasi. Razlog ovom je da æe ti storage biti null dok ovu metodu ne pozoveš, a jednom kada si ju pozvao onda ti storage više nikada ne smije biti null. Možeš jednostavno onda provjeriti da li ti je storage null pa u tom sluèaju ga inicijalizirati.
+- metoda od 170 linija(parseTag) nije baš u duhu objektno orjentirane paradigme. Podijeli posao na sitnije jedinice.
+- koristi StringBuilder!!!
+- ako koristiš data[currentIndex] više puta u if naredbi bilo bi bolje prije tu vrijednost izvuæi u zasebnu varijablu radi bolje èitljivosti
+- nedostaje dokumentacija za SmartScriptLexerException i SmartScriptParserException konstruktore
+- "-34" bi trebao biti protumaèen kao integer, a u tvom se sluèaju tumaèi kao double. Možeš samo kod provjere za minus staviti da je tip INTEGER umjesto DOUBLE, a ostalo bi sve trebalo i dalje funkcionirati
+- u primjeru sa stranice 13 iz upute za zadaæu se ne isparsira dobro "*" operator pa na kraju to završi kao ElementVariable umjesto ElementOperator. Greška ti je u regexu u parseru koji oèekuje barem jedan znak razmaka("\n", "\r", "\t") nakon operatora(+ znak na kraju regexa ti znaèi "jednom ili više puta"). Vjerojatno si mislio iskoristiti "0 ili više puta" regex simbol što ti je "*".
+- Nastavno na prethodni problem, dovoljno vjerojatna mi je situacija i da si "+" na kraj regexa stavio namjerno jer tijekom tokenizacije taga umjesto da ignoriraš znakove razmaka ti ih kupiš sa sljedeæim tokenom. Token bi trebao imati samo znakove relevantne za token, a ostatak bi trebao ignorirati. Ako trpaš nepotrebne stvari u token onda se moraš brinuti i o tom da na nekom drugom mjestu pratiš šta se dešava s tim(kao što je ovdje bio sluèaj s parserom) i to ti samo komplicira organizaciju koda jer je teže vizualizirati šta trebaš napraviti. Ako si stvoriš takav ugovor da je ono što dobivaš u tokenu jedino što tamo treba biti onda u sluèaju da se negdje s tim desi greška znaš(ili možeš pretpostaviti s jako velikom vjerojatnošæu) da je greška u komponenti koja je taj token dobavila.
+
+Za kraj bih ti samo savjetovao što se tokenizacije tièe da si slobodno napraviš više vrsta tokena jer lexer, kao što može prepoznati razliku izmeðu cijelog i decimalnog broja, može prepoznavati i razliku izmeðu operatora, imena varijable ili imena funkcije. Lexeru semantièki ti tokeni ništa ne znaèe, ali ih zna prepoznati kada naleti na njih. Parser pak može vidjeti da je to ime varijable na pravom mjestu(npr. prvi argument for petlje) i da su tokeni generalno dobro posloženi. 
+
+(Ako si veæ imao na umu da daš malo više posla lexeru, ali si skužio da ti je ova implementacija bila bolja i lakša za napraviti onda preskoèi iduæi odlomak do dijela "ZA ISPRAVITI")
+Pogledaj si neke primjere na netu za npr. ANTLR parser. 
+Primjer pravila za ANTLR:
+DATE : TWODIGIT TWODIGIT '-' LETTER LETTER LETTER '-' TWODIGIT
+
+Kada bi morao iz ovoga pravila podjeliti šta æe prepoznati parser a šta lexer bilo bi jako teško odluèiti šta ulazi u èiji opseg. Tokeni u lexeru mogu biti TWODIGIT, LETTER i "-" pa bi parser samo trebao prepoznati zadani niz kao "DATE", a opet možeš reæi da ti je token u lexeru DATE pa smanjiti opseg posla u parseru. Odgovor na to šta odluèiti je isti kao i za veæinu situacija na ovom predmetu, a to je "ovisi". Tanka je granica izmeðu dobra i zla, Jave i sna, lexera i parsera,... 
+Da povuèem crtu izmeðu tog primjera i zadaæe, prema tom primjeru, u nekoj krajnosti, bi po meni bilo sasvim legitimno rješenje da je netko napravio lexer koji samo vraæa znak po znak, a parser da prema tom donosi odluku šta se dalje parsira prema pravilima za recimo FOR-tag ili "="-tag. U tom sluèaju lexer zapravo ne radi nikakav posao i kao takav je beskoristan. Stoga bi bolje rješenje bilo dati lexeru posao da ipak ne vraæa samo znak po znak nego da vrati nekakvu grupu znakova za koju onda parser više ne bi morao gledati šta se u njoj nalazi nego bi samo vidio šta predstavlja ta grupa. Sad smo veæ na tragu onoga što smo u zadaæi trebali napraviti. Ako smo definirali sad da lexer parseru daje grupe znakova u koje parser ne mora gledati onda parser ne bi trebao raditi poslove kao što su provjera sadrži li grupa znakova u sebi prazan string ili prazne znakove i slièno. Da bi ovo bilo moguæe postiæi lexer bi morao moæi raspoznati više grupa znakova kako bi jasno dao razliku parseru izmeðu dvije sliène grupe znakova(npr ime varijable i funkcije). 
+
+ZA ISPRAVITI:
+- dodati dokumentaciju na List suèelje i njegove metode i konstruktore iznimki
+- ispraviti lexer/parser tako da se operatori ispravno parsiraju u ElementOperator
+- ispraviti lexer/parser tako da se "-23" parsira u ElementConstantInteger
+
+
+
+ISPRAVAK:
+
+1.ZADATAK
+Collection:
+-promijenih addAll tako da se koristi lambda izraz.
+
+List:
+-dodana je dokumentacija na suèelje List i njegove metode.
+
+ArrayIndexedCollection i LinkedListIndexedCollection:
+-u metodu hasNextElement je dodana provjera za modifikacije.
+
+3.ZADATAK
+Uglavnom sam veæinu toga refaktorirao... Kada sam izrecenzirao ostale kolege, shvatio sam koliko mi je kod bio neorganiziran i koliko sam nepotrebnih stvari radio itd..
+Pošto æe nam ova zadaæa trebati nekada kasnije, bolje da ju sada dotjeram kako spada nego da se tada muèim.
+Nadodao sam nekoliko novih tipova za token..nemam više samo tip TEXT gdje onda u parseru dodatno provjeravam, veæ sve radim praktièki u lexeru i odreðujem
+je li nešto string, varijabla, broj itd..
+Razbio sam kod na više metoda tako da parseTag metoda u lexeru nije nakrcana više sa brdo linija, nadodao sam neke konstante koje koristim pri usporedbi npr je li znak
+validan operator ili je li znak možda _ i slièno da izbjegnem "magiène" varijable, nadodao sam toString() metodu za sve elemente i nodove koje koristim pri kreiranju novog dokumenta
+koji bi se trebao moæi ponovo parsirati kao i prvi put..
+U sluèaju kada nam nadoðe neki escapeani znak u ulaznom dokumentu, to rješavam sa metodom iz razreda String, replaceAll(..) kako bi se dotièni znak mogao ponovno isparsirati..
+Mislim da se sve sada parsira u svoj odreðeni ELEMENT value pa tako bi se operatori trebali parsirati u ElementOperator, funkcija u ElementFunction itd..
+Primjer iz opisa vježbe se nalazi u folderu examples pod nazivom doc1.txt i njega obraðujem u SmartScriptTesteru, a ostali neki dodatni primjeri se nalaze u src/test/resources koji su provjereni testovima.
+Minimalni uvjet parsiranja treæeg zadatka je zasigurno zadovoljen, ali nadam se da i ostalo ispada kako treba :)

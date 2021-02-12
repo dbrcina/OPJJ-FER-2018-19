@@ -1,0 +1,8 @@
+1.ZADATAK
+-ispravio sam funkciju calculateFactorial tako da zadovoljava uvjet [0,20]
+-ispravio sam testove tako da se provjeravaju i negativni brojevi
+
+3.ZADATAK
+-ispravio sam ispis tako da ne mijenjam inicijalno stablo, nego sve radim na istom nepromijenjenom stablu
+-promijenio sam containsValue i addNode u rekurzivne funckije
+-ispravio sam testove tako da za funkciju addNode sada postoji jedinstven test, a ne kroz test druge metode

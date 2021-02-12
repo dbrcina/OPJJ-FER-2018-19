@@ -1,0 +1,10 @@
+{$ FOR i-1.35bbb"1" $}
+{$ FOR var -1.35bbb "1 " $}
+{$ FOR i -1.35 -200 "1" $}
+{$ FOR i-1.35 "bbb" 1 $}
+{$END$}
+{$END$}
+{$END$}
+{$END$}
+{$END$}
+{$END$}

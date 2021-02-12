@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Primjer JavaScript koda</title>
+    <script type="text/javascript"><!--
+
+		var v = {
+			ime: "Pero",
+			prezime: "Perić",
+			puno: function() {
+				return this.ime + " " + this.prezime;
+			}
+		};
+
+		// Kad se dokument u prozoru učita, pokreni ovaj dolje kod:
+		window.onload = function() {
+			document.getElementById("rezultat").innerHTML = "Ime je " + v.ime + ", puno ime je " + v.puno();
+		};
+
+    //--></script>
+  </head>
+  <body>
+    <h1>Uporaba JavaScripta</h1>
+
+    <p>Rezultat je: <span id="rezultat">xxxx</span>.</p>
+  </body>
+</html>

@@ -1,0 +1,57 @@
+#tags {
+	background-color: #f6f1f1;
+	text-align: center;
+}
+
+#thumbnails {
+	text-align: center;
+}
+
+#thumbnails img {
+	border: 10px solid #d4d9da;
+	border-radius: 1.5em;
+	margin-top: 10px;
+	margin-left: 5px;
+	margin-right: 5px;
+}
+
+#picture {
+	text-align: center;
+}
+
+#picture hr {
+	margin-top: 20px;
+	margin-bottom: -5px;
+	border: 5px solid #d4d9da;
+}
+
+#picture p {
+	text-align: center;
+	font-size: 1.3em;
+	font-family: sans-serif;
+	font-style: italic;
+	margin-bottom: 0px;
+}
+
+#picture img {
+	text-align: center;
+	margin-top: 10px;
+	width: 75%;
+	border: 10px solid #d4d9da;
+	border-radius: 1.5em;
+}
+
+button {
+	block-size: 2em;
+	font-size: 15px;
+	font-family: sans-serif;
+}
+
+button:hover {
+	background-color: #c0c0c0;
+}
+
+body {
+	margin: inherit;
+	background-color: cornsilk;
+}
